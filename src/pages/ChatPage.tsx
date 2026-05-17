@@ -8640,7 +8640,8 @@ function MessageInsightControl({
   avatarUrl,
   senderName,
   targetText,
-  contextCount
+  contextCount,
+  compact
 }: {
   message: Message
   messageKey: string
@@ -8650,6 +8651,7 @@ function MessageInsightControl({
   senderName?: string
   targetText: string
   contextCount: number
+  compact?: boolean
 }) {
   const anchorRef = useRef<HTMLButtonElement | null>(null)
   const cardRef = useRef<HTMLDivElement | null>(null)
@@ -8798,9 +8800,16 @@ function MessageInsightControl({
 
   return (
     <>
-      <button ref={anchorRef} type="button" className="message-insight-trigger" onClick={handleOpen} title="深度解析">
+      <button
+        ref={anchorRef}
+        type="button"
+        className={`message-insight-trigger ${compact ? 'compact' : ''}`}
+        onClick={handleOpen}
+        title="深度解析"
+        aria-label="深度解析"
+      >
         <Star size={12} />
-        <span>深度解析</span>
+        {!compact && <span>深度解析</span>}
       </button>
       {card}
     </>
@@ -10085,6 +10094,7 @@ function MessageBubble({
       senderName={resolvedSenderName || session.displayName || session.username}
       targetText={cleanedParsedContent}
       contextCount={aiMessageInsightContextCount || 50}
+      compact={!isGroupChat}
     />
   ) : null
 

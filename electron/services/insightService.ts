@@ -259,7 +259,7 @@ function callApi(
     }
     const body = JSON.stringify(payload)
 
-    const options = {
+    const requestOptions = {
       hostname: urlObj.hostname,
       port: urlObj.port || (urlObj.protocol === 'https:' ? 443 : 80),
       path: urlObj.pathname + urlObj.search,
@@ -273,7 +273,7 @@ function callApi(
 
     const isHttps = urlObj.protocol === 'https:'
     const requestFn = isHttps ? https.request : http.request
-    const req = requestFn(options, (res) => {
+    const req = requestFn(requestOptions, (res) => {
       let data = ''
       res.on('data', (chunk) => { data += chunk })
       res.on('end', () => {

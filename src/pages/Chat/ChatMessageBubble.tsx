@@ -101,13 +101,13 @@ function ChatMessageBubble({
                 {actionNode}
               </div>
             )}
-            {!isGroupChat && !isSent && actionNode ? (
-              <div className="message-action-floating">
-                {actionNode}
-              </div>
-            ) : null}
             {children}
           </div>
+          {!isGroupChat && !isSent && actionNode ? (
+            <div className="message-action-inline">
+              {actionNode}
+            </div>
+          ) : null}
         </div>
 
         {isSelectionMode && isSent && <SelectionCheckbox checked={isSelected} side="right" />}
